@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 FROM ghcr.io/linuxserver/baseimage-alpine:3.20 as buildstage
-
+COPY  /root/defaults/   /usr/local/pwndrop/
 # build variables
 ARG PWNDROP_RELEASE
 
