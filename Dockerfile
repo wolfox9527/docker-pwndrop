@@ -1,7 +1,9 @@
 # syntax=docker/dockerfile:1
 
 FROM ghcr.io/linuxserver/baseimage-alpine:3.20 as buildstage
-COPY  /root/defaults/   /usr/local/pwndrop/
+RUN mkdir -p /usr/local/pwndrop
+COPY /root/defaults/pwndrop.ini  /usr/local/pwndrop/pwndrop.ini
+RUN chmod 755 /usr/local/pwndrop/pwndrop.ini
 # build variables
 ARG PWNDROP_RELEASE
 
@@ -42,6 +44,10 @@ ARG VERSION
 ARG PWNDROP_RELEASE
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="aptalca"
+
+RUN mkdir -p /usr/local/pwndrop
+COPY /root/defaults/pwndrop.ini  /usr/local/pwndrop/pwndrop.ini
+RUN chmod 755 /usr/local/pwndrop/pwndrop.ini
 
 # add pwndrop
 COPY --from=buildstage /app/pwndrop/ /app/pwndrop/
