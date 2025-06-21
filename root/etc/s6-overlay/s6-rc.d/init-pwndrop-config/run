@@ -3,6 +3,18 @@
 
 mkdir -p /config/data
 
+if [[ ! -f "/config/data/pwndrop.db" ]]; then
+    SECRET_PATH=${SECRET_PATH:-/pwndrop}
+    echo "New install detected, starting pwndrop with secret path ${SECRET_PATH}"
+    cat << EOF >> /defaults/pwndrop.ini
+[setup]
+secret_path = "${SECRET_PATH}"
+username = "${SECRET_USER}"
+redirect_url = "${SECRET_URL}"
+password = "${SECRET_PASSWORD}"
+EOF
+fi
+
 # permissions
 lsiown -R abc:abc \
     /config \
